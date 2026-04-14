@@ -1186,24 +1186,6 @@ footer span { color: var(--accent); }
   .nav-links { display: none; }
   .menu-toggle { display: block; }
 
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--paper);
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    z-index: 1050;
-    animation: menuFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  @keyframes menuFadeIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
   .nav-links.open a {
     font-size: 1.2rem;
   }
@@ -1225,6 +1207,52 @@ footer span { color: var(--accent); }
   .cta-section { padding: 4rem 1.5rem; }
   footer { padding: 1.5rem; }
 }
+
+/* Mobile menu overlay — lives outside <nav> to avoid backdrop-filter stacking context */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--paper);
+  z-index: 1050;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-menu-overlay.open {
+  display: flex;
+  animation: menuFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes menuFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mobile-menu-overlay ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-menu-overlay ul a {
+  font-size: 1.2rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--sans);
+}
+
+.mobile-menu-overlay ul .nav-cta {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.6rem 1.4rem;
+  border-radius: 4px;
+}
 </style>
 </head>
 <body>
@@ -1232,7 +1260,7 @@ footer span { color: var(--accent); }
 <!-- NAVIGATION -->
 <nav id="navbar">
   <a href="#" class="nav-logo">Saravanan Svanas</a>
-  <ul class="nav-links" id="navLinks">
+  <ul class="nav-links" id="navLinksDesktop">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#tools">Tools</a></li>
@@ -1246,6 +1274,20 @@ footer span { color: var(--accent); }
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+<!-- MOBILE MENU OVERLAY (outside nav to avoid backdrop-filter stacking context) -->
+<div class="mobile-menu-overlay" id="mobileMenu">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="./case_list.html">casestudies</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#" class="nav-cta" onclick="openChatModal(event)">Let's Chat</a></li>
+  </ul>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1641,7 +1683,7 @@ footer span { color: var(--accent); }
     <p class="section-subtitle">
       Book a free 30-minute strategy call. We'll audit your current growth engine and map out a plan to hit your next revenue milestone.
     </p>
-    <a href="mailto:saravanan@infobuddha.in" class="btn-primary" style="font-size: 1rem; padding: 1.1rem 2.8rem;">
+    <a href="mailto:saravansvanas426@gmail.com" class="btn-primary" style="font-size: 1rem; padding: 1.1rem 2.8rem;">
       Book Your Free Call
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
@@ -1654,7 +1696,7 @@ footer span { color: var(--accent); }
         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
         Medium
       </a>
-      <a href="mailto:saravanan@infobuddha.in" class="cta-link">
+      <a href="mailto:saravansvanas426@gmail.com" class="cta-link">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Email
       </a>
@@ -1718,17 +1760,17 @@ window.addEventListener('scroll', () => {
 // Mobile menu
 (function () {
   const toggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
+  const overlay = document.getElementById('mobileMenu');
 
   function openMenu() {
-    navLinks.classList.add('open');
+    overlay.classList.add('open');
     toggle.classList.add('open');
     toggle.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
 
   function closeMenu() {
-    navLinks.classList.remove('open');
+    overlay.classList.remove('open');
     toggle.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
@@ -1737,17 +1779,17 @@ window.addEventListener('scroll', () => {
   // Use pointerup to avoid 300ms delay and prevent double-fire
   toggle.addEventListener('pointerup', function (e) {
     e.preventDefault();
-    navLinks.classList.contains('open') ? closeMenu() : openMenu();
+    overlay.classList.contains('open') ? closeMenu() : openMenu();
   });
 
   // Close on nav link click
-  navLinks.querySelectorAll('a').forEach(a => {
+  overlay.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', closeMenu);
   });
 
   // Close on Escape key
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && navLinks.classList.contains('open')) closeMenu();
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
   });
 })();
 
