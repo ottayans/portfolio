@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Studies — Saravanan Svanas | Growth Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0a0a;
+  --paper: #f5f0eb;
+  --cream: #ede6dd;
+  --accent: #c4622d;
+  --accent-glow: #e87a3a;
+  --muted: #8a8078;
+  --card-bg: #ffffff;
+  --divider: rgba(10,10,10,0.08);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --green: #25D366;
+  --green-dark: #128C7E;
+  --blue: #3b82f6;
+  --purple: #8b5cf6;
+  --pink: #ec4899;
+  --amber: #f59e0b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ========== NAVIGATION ========== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+nav.scrolled {
+  background: rgba(245, 240, 235, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--divider);
+  padding: 0.8rem 3rem;
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--accent); }
+
+.nav-cta {
+  background: var(--ink) !important;
+  color: var(--paper) !important;
+  padding: 0.6rem 1.6rem !important;
+  border-radius: 100px;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.08em !important;
+  transition: all 0.3s !important;
+}
+
+.nav-cta:hover {
+  background: var(--accent) !important;
+  transform: translateY(-1px);
+}
+
+.nav-cta::after { display: none !important; }
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 20px;
+  position: relative;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  position: absolute;
+  left: 0;
+  transition: all 0.3s;
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 9px; }
+.menu-toggle span:nth-child(3) { top: 18px; }
+
+/* ========== PAGE HERO ========== */
+.page-hero {
+  padding: 10rem 3rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,98,45,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.page-hero-inner {
+  max-width: 750px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.page-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.page-tag::before,
+.page-tag::after {
+  content: '';
+  width: 28px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+.page-hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+
+.page-hero h1 .accent { color: var(--accent); font-style: italic; }
+
+.page-hero-desc {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--muted);
+  font-weight: 300;
+  max-width: 580px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+/* ========== FILTER TABS ========== */
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0 3rem;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+
+.filter-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 100px;
+  padding: 0.55rem 1.4rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.filter-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* ========== CASE STUDY CARDS GRID ========== */
+.cs-grid-section {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 3rem 6rem;
+}
+
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+/* ========== FEATURED CARD (first card, full width) ========== */
+.cs-card-featured {
+  grid-column: 1 / -1;
+  background: var(--ink);
+  border-radius: 24px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  text-decoration: none;
+  color: var(--paper);
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-card-featured:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+}
+
+.cs-card-featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(196,98,45,0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.featured-visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+}
+
+.featured-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-card-featured:hover .featured-visual img {
+  opacity: 0.65;
+  transform: scale(1.04);
+}
+
+.featured-badge {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: var(--accent);
+  color: white;
+  padding: 0.35rem 1rem;
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.featured-content {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.featured-content .cs-card-category {
+  color: var(--green);
+}
+
+.featured-content .cs-card-title {
+  font-size: 1.8rem;
+  color: var(--paper);
+}
+
+.featured-content .cs-card-desc {
+  color: rgba(245,240,235,0.55);
+}
+
+.featured-content .cs-card-metrics .metric-val {
+  color: var(--accent);
+}
+
+.featured-content .cs-card-metrics .metric-label {
+  color: rgba(245,240,235,0.4);
+}
+
+.featured-content .cs-card-link {
+  color: var(--accent);
+}
+
+.featured-content .cs-card-tags .tag {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+  color: rgba(245,240,235,0.6);
+}
+
+/* ========== REGULAR CARDS ========== */
+.cs-card {
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.cs-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.07);
+  border-color: rgba(196,98,45,0.2);
+}
+
+.cs-card-visual {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.cs-card-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-card:hover .cs-card-visual img {
+  transform: scale(1.06);
+}
+
+.cs-card-icon-overlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cs-card-icon-overlay.green-bg { background: rgba(37,211,102,0.85); }
+.cs-card-icon-overlay.blue-bg { background: rgba(59,130,246,0.85); }
+.cs-card-icon-overlay.purple-bg { background: rgba(139,92,246,0.85); }
+.cs-card-icon-overlay.pink-bg { background: rgba(236,72,153,0.85); }
+.cs-card-icon-overlay.amber-bg { background: rgba(245,158,11,0.85); }
+.cs-card-icon-overlay.accent-bg { background: rgba(196,98,45,0.85); }
+
+.cs-card-body {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cs-card-category {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.cs-card-category.green { color: var(--green-dark); }
+.cs-card-category.blue { color: var(--blue); }
+.cs-card-category.purple { color: var(--purple); }
+.cs-card-category.pink { color: var(--pink); }
+.cs-card-category.amber { color: var(--amber); }
+.cs-card-category.accent { color: var(--accent); }
+
+.cs-card-title {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.7rem;
+}
+
+.cs-card-desc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 1.2rem;
+  flex: 1;
+}
+
+.cs-card-metrics {
+  display: flex;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--divider);
+  margin-bottom: 1.2rem;
+}
+
+.metric-val {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.metric-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cs-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cs-card-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.cs-card-tags .tag {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 100px;
+  background: rgba(10,10,10,0.03);
+  border: 1px solid var(--divider);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.cs-card-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: gap 0.3s;
+  white-space: nowrap;
+}
+
+.cs-card:hover .cs-card-link,
+.cs-card-featured:hover .cs-card-link { gap: 0.6rem; }
+
+/* ========== COMING SOON OVERLAY ========== */
+.cs-card.coming-soon {
+  pointer-events: none;
+}
+
+.cs-card.coming-soon .cs-card-visual::after {
+  content: 'COMING SOON';
+  position: absolute;
+  inset: 0;
+  background: rgba(10,10,10,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  z-index: 3;
+  backdrop-filter: blur(2px);
+}
+
+.cs-card.coming-soon .cs-card-body {
+  opacity: 0.45;
+}
+
+/* ========== STATS STRIP ========== */
+.stats-strip {
+  background: var(--ink);
+  padding: 3.5rem 3rem;
+  margin-bottom: 4rem;
+}
+
+.stats-strip-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.strip-stat-number {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.strip-stat-label {
+  font-size: 0.78rem;
+  color: rgba(245,240,235,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ========== CTA SECTION ========== */
+.cta-section {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 7rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,98,45,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  justify-content: center;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: var(--paper);
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: rgba(245,240,235,0.5);
+  max-width: 480px;
+  margin: 1rem auto 2.5rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--accent);
+  color: var(--paper);
+  padding: 1.1rem 2.8rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--accent-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(196,98,45,0.3);
+}
+
+.cta-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(245,240,235,0.6);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+
+.cta-link:hover { color: var(--accent); }
+
+/* ========== FOOTER ========== */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem 3rem;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.78rem;
+  color: rgba(245,240,235,0.3);
+  letter-spacing: 0.04em;
+}
+
+footer span { color: var(--accent); }
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .cs-card-featured { grid-template-columns: 1fr; }
+  .featured-visual { min-height: 240px; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  nav.scrolled { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .menu-toggle { display: block; }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--paper);
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 999;
+  }
+
+  .nav-links.open a { font-size: 1.2rem; }
+
+  .page-hero { padding: 7rem 1.5rem 3rem; }
+  .cs-grid-section { padding: 0 1.5rem 4rem; }
+  .cs-grid { grid-template-columns: 1fr; }
+  .stats-strip-inner { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .filter-bar { padding: 0 1.5rem; }
+  .cta-section { padding: 4rem 1.5rem; }
+  footer { padding: 1.5rem; }
+  .featured-content { padding: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">S<span>.</span>Svanas</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="case-studies.html" style="color:var(--accent)">Case Studies</a></li>
+    <li><a href="index.html#tools">Tools</a></li>
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-tag">Real Results</div>
+    <h1>Systems That <span class="accent">Scaled</span> Real Businesses</h1>
+    <p class="page-hero-desc">
+      Every case study here is a real business that was stuck — and a system I built to unstick it. No fluff, no vanity metrics. Just results.
+    </p>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-strip-inner reveal">
+    <div>
+      <div class="strip-stat-number">50+</div>
+      <div class="strip-stat-label">SMEs Helped</div>
+    </div>
+    <div>
+      <div class="strip-stat-number">3x</div>
+      <div class="strip-stat-label">Avg. Revenue Lift</div>
+    </div>
+    <div>
+      <div class="strip-stat-number">100+</div>
+      <div class="strip-stat-label">Systems Automated</div>
+    </div>
+    <div>
+      <div class="strip-stat-number">92%</div>
+      <div class="strip-stat-label">Client Retention</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="automation">Automation</button>
+  <button class="filter-btn" data-filter="ads">Paid Ads</button>
+  <button class="filter-btn" data-filter="seo">SEO & Organic</button>
+  <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+  <button class="filter-btn" data-filter="sales">Sales Systems</button>
+  <button class="filter-btn" data-filter="ai">AI & Chatbots</button>
+</div>
+
+<!-- CARDS GRID -->
+<div class="cs-grid-section">
+  <div class="cs-grid">
+
+    <!-- FEATURED: WhatsApp Automation -->
+    <a href="./case.html" class="cs-card-featured reveal" data-category="automation">
+      <div class="featured-visual">
+        <img src="./Saravanan Images/WhatsApp Image 2026-04-14 at 2.10.12 PM.jpeg" alt="WhatsApp Automation Case Study">
+        <span class="featured-badge">Featured Case Study</span>
+      </div>
+      <div class="featured-content">
+        <div class="cs-card-category green">WhatsApp Automation</div>
+        <div class="cs-card-title">From Lead Chaos to Automated Conversions</div>
+        <div class="cs-card-desc">
+          A CCTV & home automation retailer was drowning in misrouted leads — 100+ inquiries hitting one phone number, three departments fighting over who answers. I built a WhatsApp bot using Libromi that qualifies and routes every lead to the right person instantly.
+        </div>
+        <div class="cs-card-metrics">
+          <div>
+            <div class="metric-val">100+</div>
+            <div class="metric-label">Leads Routed</div>
+          </div>
+          <div>
+            <div class="metric-val">0</div>
+            <div class="metric-label">Misroutes</div>
+          </div>
+          <div>
+            <div class="metric-val">2x</div>
+            <div class="metric-label">Faster Response</div>
+          </div>
+        </div>
+        <div class="cs-card-footer">
+          <div class="cs-card-tags">
+            <span class="tag">Libromi</span>
+            <span class="tag">Meta Ads</span>
+            <span class="tag">Retail</span>
+          </div>
+          <div class="cs-card-link">
+            Read Case Study <span>→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2: Meta Ads for D2C -->
+    <a href="./case1.html" class="cs-card  reveal" data-category="ads">
+      <div class="cs-card-visual">
+        <div class="cs-card-icon-overlay pink-bg">🎯</div>
+        <img src=".//Saravanan Images/spotlight.jpeg" alt="Meta Ads D2C">
+      </div>
+      <div class="cs-card-body">
+        <div class="cs-card-category pink">Performance Marketing</div>
+        <div class="cs-card-title">8x Revenue for a D2C Cosmetic Brand in 5 Months</div>
+        <div class="cs-card-desc">
+          Rebuilt the entire Meta Ads funnel — from awareness to retargeting — and paired it with a new sales process that turned browsers into repeat buyers.
+        </div>
+        <div class="cs-card-metrics">
+          <div>
+            <div class="metric-val">8x</div>
+            <div class="metric-label">Revenue</div>
+          </div>
+          <div>
+            <div class="metric-val">42%</div>
+            <div class="metric-label">Lower CAC</div>
+          </div>
+        </div>
+        <div class="cs-card-footer">
+          <div class="cs-card-tags">
+            <span class="tag">Meta Ads</span>
+            <span class="tag">D2C</span>
+          </div>
+          <div class="cs-card-link">
+            Read Case Study <span>→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3: Shopify Automation -->
+    <a href="./case2.html" class="cs-card reveal" data-category="ecommerce">
+      <div class="cs-card-visual">
+        <div class="cs-card-icon-overlay purple-bg">🛒</div>
+        <img src="./Saravanan Images/WhatsApp Image 2026-04-14 at 2.10.14 PM.jpeg" alt="Shopify Automation">
+      </div>
+      <div class="cs-card-body">
+        <div class="cs-card-category purple">E-Commerce</div>
+        <div class="cs-card-title">₹38 Back for
+Every ₹1 Spent for a shopify website</div>
+        <div class="cs-card-desc">
+          Took a home & living brand from zero online presence to a fully automated Shopify store with abandoned cart flows, upsell sequences, and conversion-optimized product pages.
+        </div>
+        <div class="cs-card-metrics">
+          <div>
+            <div class="metric-val">₹10L+</div>
+            <div class="metric-label">Monthly Rev</div>
+          </div>
+          <div>
+            <div class="metric-val">5.2%</div>
+            <div class="metric-label">Conv. Rate</div>
+          </div>
+        </div>
+        <div class="cs-card-footer">
+          <div class="cs-card-tags">
+            <span class="tag">Shopify</span>
+            <span class="tag">n8n</span>
+          </div>
+          <div class="cs-card-link">
+            Read Case Study <span>→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 4: Google Search Console — B2B Inbound -->
+    <a href="./case3.html" class="cs-card reveal" data-category="seo">
+      <div class="cs-card-visual">
+        <div class="cs-card-icon-overlay blue-bg">🔍</div>
+        <img src="./Saravanan Images/WhatsApp Image 2026-04-14 at 2.10.12 PM.jpeg" alt="Google Search Console B2B Case Study">
+      </div>
+      <div class="cs-card-body">
+        <div class="cs-card-category blue">Organic SEO</div>
+        <div class="cs-card-title">₹0 Spent. Google Brought the B2B Leads Anyway.</div>
+        <div class="cs-card-desc">
+          A B2B portfolio site — no blog, no backlinks, no SEO — just added to Google Search Console and errors fixed. A few months later, companies started calling from Google. Zero paid ads.
+        </div>
+        <div class="cs-card-metrics">
+          <div>
+            <div class="metric-val">₹0</div>
+            <div class="metric-label">Ad Spend</div>
+          </div>
+          <div>
+            <div class="metric-val">Inbound</div>
+            <div class="metric-label">B2B Leads</div>
+          </div>
+        </div>
+        <div class="cs-card-footer">
+          <div class="cs-card-tags">
+            <span class="tag">Search Console</span>
+            <span class="tag">B2B</span>
+            <span class="tag">Organic</span>
+          </div>
+          <div class="cs-card-link">
+            Read Case Study <span>→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5: n8n CRM Automation -->
+    <a href="./case.html" class="cs-card coming-soon reveal" data-category="automation">
+      <div class="cs-card-visual">
+        <div class="cs-card-icon-overlay blue-bg">⚙️</div>
+        <img src="images/photo_collab.jpeg" alt="n8n CRM Automation">
+      </div>
+      <div class="cs-card-body">
+        <div class="cs-card-category blue">System Automation</div>
+        <div class="cs-card-title">Saving 20+ Hours/Week With n8n Workflows</div>
+        <div class="cs-card-desc">
+          A SaaS startup was manually updating CRMs, sending follow-ups, and compiling reports. Built automated pipelines with n8n that run the entire lead nurture on autopilot.
+        </div>
+        <div class="cs-card-metrics">
+          <div>
+            <div class="metric-val">20h</div>
+            <div class="metric-label">Saved/Week</div>
+          </div>
+          <div>
+            <div class="metric-val">12</div>
+            <div class="metric-label">Workflows</div>
+          </div>
+        </div>
+        <div class="cs-card-footer">
+          <div class="cs-card-tags">
+            <span class="tag">n8n</span>
+            <span class="tag">HubSpot</span>
+            <span class="tag">SaaS</span>
+          </div>
+          <div class="cs-card-link">
+            Read Case Study <span>→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5: Sales Pipeline -->
+    <a href="./case.html" class="cs-card coming-soon reveal" data-category="sales">
+      <div class="cs-card-visual">
+        <div class="cs-card-icon-overlay amber-bg">📈</div>
+        <img src="images/photo_whiteboard_what.jpeg" alt="Sales Pipeline">
+      </div>
+      <div class="cs-card-body">
+        <div class="cs-card-category amber">Sales Systems</div>
+        <div class="cs-card-title">Building a Repeatable Sales Engine for an EdTech Startup</div>
+        <div class="cs-card-desc">
+          Designed a complete sales pipeline from lead qualification to close — with scripting, CRM setup, and a follow-up cadence that doubled their close rate.
+        </div>
+        <div class="cs-card-metrics">
+          <div>
+            <div class="metric-val">2x</div>
+            <div class="metric-label">Close Rate</div>
+          </div>
+          <div>
+            <div class="metric-val">90-day</div>
+            <div class="metric-label">Payback</div>
+          </div>
+        </div>
+        <div class="cs-card-footer">
+          <div class="cs-card-tags">
+            <span class="tag">Zoho CRM</span>
+            <span class="tag">EdTech</span>
+          </div>
+          <div class="cs-card-link">
+            Read Case Study <span>→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 6: AI Chatbot -->
+    <a href="./case.html" class="cs-card coming-soon reveal" data-category="ai">
+      <div class="cs-card-visual">
+        <div class="cs-card-icon-overlay accent-bg">🤖</div>
+        <img src="images/photo_expo.jpeg" alt="AI Chatbot">
+      </div>
+      <div class="cs-card-body">
+        <div class="cs-card-category accent">AI & Chatbots</div>
+        <div class="cs-card-title">AI-Powered Customer Support That Handles 80% of Tickets</div>
+        <div class="cs-card-desc">
+          Deployed an AI chatbot integrated with the client's knowledge base and ticketing system — deflecting 80% of repetitive inquiries and freeing the support team for complex issues.
+        </div>
+        <div class="cs-card-metrics">
+          <div>
+            <div class="metric-val">80%</div>
+            <div class="metric-label">Deflection</div>
+          </div>
+          <div>
+            <div class="metric-val">&lt;30s</div>
+            <div class="metric-label">Avg Response</div>
+          </div>
+        </div>
+        <div class="cs-card-footer">
+          <div class="cs-card-tags">
+            <span class="tag">AI</span>
+            <span class="tag">Chatbot</span>
+            <span class="tag">Support</span>
+          </div>
+          <div class="cs-card-link">
+            Read Case Study <span>→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <div class="section-tag">Your Business Next?</div>
+    <h2 class="section-title">Let's Build Your Growth System</h2>
+    <p class="section-subtitle">
+      Every case study above started with a single conversation. Book a free 30-minute strategy call and let's find the system your business needs.
+    </p>
+    <a href="mailto:saravanan@infobuddha.in" class="btn-primary">
+      Book Your Free Call
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <div class="cta-links">
+      <a href="https://www.linkedin.com/in/saravanansvanas/" target="_blank" class="cta-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://medium.com/@mindtechmarketer" target="_blank" class="cta-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+        Medium
+      </a>
+      <a href="mailto:saravanan@infobuddha.in" class="cta-link">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Saravanan Svanas · <span>Info Buddha Technologies</span> · Built with intention.</p>
+</footer>
+
+<script>
+// Navbar scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// Filter functionality
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.cs-card, .cs-card-featured');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+
+    cards.forEach(card => {
+      const category = card.dataset.category;
+      if (filter === 'all' || category === filter) {
+        card.style.display = '';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 50);
+      } else {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.display = 'none';
+        }, 300);
+      }
+    });
+  });
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

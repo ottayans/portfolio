@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study: WhatsApp Lead Routing Automation — Saravanan Svanas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0a0a;
+  --paper: #f5f0eb;
+  --cream: #ede6dd;
+  --accent: #c4622d;
+  --accent-glow: #e87a3a;
+  --muted: #8a8078;
+  --card-bg: #ffffff;
+  --divider: rgba(10,10,10,0.08);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --green: #25D366;
+  --green-dark: #128C7E;
+  --red-soft: #e74c3c;
+  --blue-soft: #3b82f6;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ========== NAVIGATION (same as portfolio) ========== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+nav.scrolled {
+  background: rgba(245, 240, 235, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--divider);
+  padding: 0.8rem 3rem;
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--accent); }
+
+.nav-cta {
+  background: var(--ink) !important;
+  color: var(--paper) !important;
+  padding: 0.6rem 1.6rem !important;
+  border-radius: 100px;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.08em !important;
+  transition: all 0.3s !important;
+}
+
+.nav-cta:hover {
+  background: var(--accent) !important;
+  transform: translateY(-1px);
+}
+
+.nav-cta::after { display: none !important; }
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 20px;
+  position: relative;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  position: absolute;
+  left: 0;
+  transition: all 0.3s;
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 9px; }
+.menu-toggle span:nth-child(3) { top: 18px; }
+
+/* ========== CASE STUDY HERO ========== */
+.cs-hero {
+  padding: 10rem 3rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cs-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -15%;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,211,102,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.cs-hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cs-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  text-decoration: none;
+}
+
+.cs-breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cs-breadcrumb a:hover { text-decoration: underline; }
+
+.cs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(37,211,102,0.1);
+  border: 1px solid rgba(37,211,102,0.2);
+  color: var(--green-dark);
+  padding: 0.45rem 1.2rem;
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.cs-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.cs-hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+
+.cs-hero h1 .accent { color: var(--accent); font-style: italic; }
+.cs-hero h1 .green { color: var(--green-dark); }
+
+.cs-hero-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 660px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.cs-meta {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--divider);
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+
+.cs-meta-item label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.cs-meta-item strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* ========== RESULTS BANNER ========== */
+.results-banner {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 4rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.results-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(37,211,102,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 50%, rgba(196,98,45,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.results-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.results-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.result-card {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.4s;
+}
+
+.result-card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(37,211,102,0.2);
+  transform: translateY(-3px);
+}
+
+.result-number {
+  font-family: var(--serif);
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.result-number.green { color: var(--green); }
+.result-number.accent { color: var(--accent); }
+.result-number.blue { color: var(--blue-soft); }
+.result-number.white { color: var(--paper); }
+
+.result-label {
+  font-size: 0.82rem;
+  color: rgba(245,240,235,0.5);
+  font-weight: 300;
+}
+
+/* ========== CASE STUDY BODY ========== */
+.cs-body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 5rem 3rem;
+}
+
+.cs-section {
+  margin-bottom: 4rem;
+}
+
+.cs-section-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.cs-section-tag::before {
+  content: '';
+  width: 24px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+.cs-section h2 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+
+.cs-section p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: #4a4540;
+  font-weight: 300;
+  margin-bottom: 1.2rem;
+}
+
+.cs-section p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ========== PROBLEM / CHAOS VISUAL ========== */
+.chaos-card {
+  background: #fef2f2;
+  border: 1px solid rgba(231,76,60,0.15);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.chaos-card::before {
+  content: '⚠';
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  font-size: 8rem;
+  opacity: 0.04;
+}
+
+.chaos-card h3 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--red-soft);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.chaos-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.chaos-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.95rem;
+  color: #5a3a3a;
+  line-height: 1.6;
+}
+
+.chaos-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(231,76,60,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+/* ========== SOLUTION CARD ========== */
+.solution-card {
+  background: linear-gradient(135deg, rgba(37,211,102,0.04) 0%, rgba(18,140,126,0.06) 100%);
+  border: 1px solid rgba(37,211,102,0.15);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.solution-card::before {
+  content: '✦';
+  position: absolute;
+  top: -30px;
+  right: -10px;
+  font-size: 10rem;
+  opacity: 0.03;
+  color: var(--green);
+}
+
+.solution-card h3 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--green-dark);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.solution-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.solution-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.95rem;
+  color: #2a4a3a;
+  line-height: 1.6;
+}
+
+.check-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(37,211,102,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--green-dark);
+  margin-top: 2px;
+}
+
+/* ========== FLOW DIAGRAM ========== */
+.flow-section {
+  background: var(--cream);
+  border-radius: 24px;
+  padding: 3rem;
+  margin: 3rem 0;
+}
+
+.flow-section h3 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.flow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 140px;
+}
+
+.flow-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.flow-step:hover .flow-icon-box { transform: scale(1.08); }
+
+.flow-icon-box.wa { background: rgba(37,211,102,0.15); }
+.flow-icon-box.bot { background: rgba(196,98,45,0.12); }
+.flow-icon-box.route { background: rgba(59,130,246,0.12); }
+.flow-icon-box.team { background: rgba(10,10,10,0.08); }
+
+.flow-step-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.flow-step-desc {
+  font-size: 0.7rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.flow-arrow {
+  font-size: 1.2rem;
+  color: var(--muted);
+  margin: 0 0.8rem;
+  opacity: 0.4;
+  padding-bottom: 2rem;
+}
+
+/* ========== WHATSAPP CHAT MOCKUP ========== */
+.chat-mockup {
+  background: #e5ddd5;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 2.5rem 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chat-header {
+  background: var(--green-dark);
+  color: white;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.chat-header-info h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.chat-header-info span {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.chat-body {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c7bfb2' fill-opacity='0.12'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.chat-msg {
+  max-width: 82%;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  position: relative;
+}
+
+.chat-msg.bot {
+  background: white;
+  align-self: flex-start;
+  border-top-left-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.chat-msg.user {
+  background: #dcf8c6;
+  align-self: flex-end;
+  border-top-right-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.chat-msg .time {
+  font-size: 0.6rem;
+  color: #999;
+  text-align: right;
+  margin-top: 0.3rem;
+}
+
+.chat-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.chat-option-btn {
+  background: rgba(37,211,102,0.08);
+  border: 1px solid rgba(37,211,102,0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.8rem;
+  color: var(--green-dark);
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chat-option-btn:hover {
+  background: rgba(37,211,102,0.15);
+  border-color: var(--green);
+}
+
+.chat-option-btn.selected {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+
+.chat-typing {
+  align-self: flex-start;
+  background: white;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border-top-left-radius: 3px;
+  display: flex;
+  gap: 0.3rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.chat-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #aaa;
+  animation: typing 1.2s infinite;
+}
+
+.chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* ========== QUOTE / INSIGHT ========== */
+.insight-block {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 20px;
+  padding: 3rem;
+  margin: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.insight-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(196,98,45,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.insight-block blockquote {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1.5;
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.insight-block blockquote::before {
+  content: '"';
+  font-size: 5rem;
+  color: var(--accent);
+  opacity: 0.3;
+  position: absolute;
+  top: -2rem;
+  left: -1rem;
+  font-family: var(--serif);
+  line-height: 1;
+}
+
+.insight-block cite {
+  display: block;
+  margin-top: 1.2rem;
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--accent);
+  position: relative;
+  z-index: 2;
+}
+
+/* ========== TOOLS USED ========== */
+.tools-used {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+}
+
+.tool-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 100px;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.tool-tag:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(196,98,45,0.08);
+}
+
+.tool-tag .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.tool-tag .dot.green { background: var(--green); }
+.tool-tag .dot.orange { background: var(--accent); }
+.tool-tag .dot.blue { background: var(--blue-soft); }
+
+/* ========== TIMELINE ========== */
+.timeline {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--red-soft), var(--accent), var(--green));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 2rem 1.5rem;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-dot {
+  position: absolute;
+  left: -2rem;
+  top: 0.2rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid;
+  background: var(--paper);
+  transform: translateX(-50%);
+  margin-left: 1px;
+}
+
+.timeline-dot.red { border-color: var(--red-soft); }
+.timeline-dot.orange { border-color: var(--accent); }
+.timeline-dot.green { border-color: var(--green); }
+
+.timeline-item h4 {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-item p {
+  font-size: 0.9rem !important;
+  color: var(--muted) !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0 !important;
+}
+
+/* ========== CTA SECTION (same as portfolio) ========== */
+.cta-section {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 7rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,98,45,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-section .section-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  justify-content: center;
+}
+
+.cta-section .section-title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: var(--paper);
+}
+
+.cta-section .section-subtitle {
+  font-size: 1.05rem;
+  color: rgba(245,240,235,0.5);
+  max-width: 480px;
+  margin: 1rem auto 2.5rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1rem 2.2rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 2px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(196,98,45,0.3);
+}
+
+.cta-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(245,240,235,0.6);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+
+.cta-link:hover { color: var(--accent); }
+
+/* ========== FOOTER (same as portfolio) ========== */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem 3rem;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.78rem;
+  color: rgba(245,240,235,0.3);
+  letter-spacing: 0.04em;
+}
+
+footer span { color: var(--accent); }
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  nav.scrolled { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .menu-toggle { display: block; }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--paper);
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 999;
+  }
+
+  .nav-links.open a { font-size: 1.2rem; }
+
+  .cs-hero { padding: 7rem 1.5rem 3rem; }
+  .cs-body { padding: 3rem 1.5rem; }
+  .cs-meta { flex-wrap: wrap; gap: 1.5rem; }
+  .results-grid { grid-template-columns: repeat(2, 1fr); }
+  .flow-diagram { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); margin: 0.5rem 0; }
+  .chaos-card, .solution-card { padding: 1.8rem; }
+  .insight-block { padding: 2rem; }
+  .insight-block blockquote { font-size: 1.2rem; }
+  .chat-mockup { max-width: 100%; }
+  .cta-section { padding: 4rem 1.5rem; }
+  footer { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">S<span>.</span>Svanas</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#tools">Tools</a></li>
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html#videos">Videos</a></li>
+    <li><a href="index.html#testimonials">Testimonials</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- CASE STUDY HERO -->
+<section class="cs-hero">
+  <div class="cs-hero-inner">
+    <div class="cs-breadcrumb">
+      <a href="index.html">Home</a>
+      <span>→</span>
+      <span>Case Study</span>
+    </div>
+
+    <div class="cs-badge">
+      <span class="cs-badge-dot"></span>
+      WhatsApp Automation
+    </div>
+
+    <h1>
+      From Lead <span class="accent">Chaos</span> to<br>
+      Automated <span class="green">Conversions</span>
+    </h1>
+
+    <p class="cs-hero-subtitle">
+      How a simple WhatsApp bot turned a messy, one-number lead system into an intelligent routing engine — eliminating confusion and boosting close rates for a CCTV & home automation retailer.
+    </p>
+
+    <div class="cs-meta">
+      <div class="cs-meta-item">
+        <label>Client</label>
+        <strong>CCTV & Home Automation Retailer</strong>
+      </div>
+      <div class="cs-meta-item">
+        <label>Industry</label>
+        <strong>Retail / Wholesale</strong>
+      </div>
+      <div class="cs-meta-item">
+        <label>Timeline</label>
+        <strong>3 Weeks</strong>
+      </div>
+      <div class="cs-meta-item">
+        <label>Tool</label>
+        <strong>Libromi</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS BANNER -->
+<div class="results-banner">
+  <div class="results-inner">
+    <div class="results-label reveal">The Results — At a Glance</div>
+    <div class="results-grid reveal">
+      <div class="result-card">
+        <div class="result-number green">100+</div>
+        <div class="result-label">Fresh Leads Delivered</div>
+      </div>
+      <div class="result-card">
+        <div class="result-number accent">3→1</div>
+        <div class="result-label">Departments, One Entry Point</div>
+      </div>
+      <div class="result-card">
+        <div class="result-number blue">0</div>
+        <div class="result-label">Misrouted Leads After Bot</div>
+      </div>
+      <div class="result-card">
+        <div class="result-number white">↑ 2x</div>
+        <div class="result-label">Faster Response Time</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CASE STUDY BODY -->
+<div class="cs-body">
+
+  <!-- THE CLIENT -->
+  <div class="cs-section reveal">
+    <div class="cs-section-tag">The Client</div>
+    <h2>A Growing Retail Business With a Hidden Bottleneck</h2>
+    <p>
+      My client runs a thriving retail business selling <strong>CCTV cameras</strong> — both wholesale and retail — alongside a dedicated <strong>home automation department</strong>. Three distinct business lines, each with its own sales team, pricing model, and customer profile.
+    </p>
+    <p>
+      We kicked off with a digital marketing push — running <strong>Meta Ads</strong> combined with strategic organic posts. Within just a few weeks, the results were impressive: <strong>over 100 fresh leads</strong> poured in. The ads were working. The content was landing. Everyone was thrilled.
+    </p>
+    <p>
+      Until the phone started ringing.
+    </p>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="cs-section reveal">
+    <div class="cs-section-tag">The Problem</div>
+    <h2>100+ Leads, 1 Phone Number, Total Confusion</h2>
+    <p>
+      Here's what nobody anticipated: <strong>every single lead was landing on one phone number.</strong> Three different people were taking turns picking up that phone — one handling CCTV wholesale inquiries, another for retail customers, and a third for home automation.
+    </p>
+
+    <div class="chaos-card">
+      <h3>
+        <span>🔴</span> What Was Actually Happening
+      </h3>
+      <ul class="chaos-list">
+        <li>
+          <span class="chaos-icon">✕</span>
+          A wholesale buyer asking about bulk CCTV pricing gets connected to the home automation guy
+        </li>
+        <li>
+          <span class="chaos-icon">✕</span>
+          A homeowner wanting smart lights gets a retail CCTV pitch instead
+        </li>
+        <li>
+          <span class="chaos-icon">✕</span>
+          The same lead gets called back by two different people with conflicting information
+        </li>
+        <li>
+          <span class="chaos-icon">✕</span>
+          Hot leads go cold because the right person never spoke to them in time
+        </li>
+        <li>
+          <span class="chaos-icon">✕</span>
+          Team members are frustrated, pointing fingers, wasting energy
+        </li>
+      </ul>
+    </div>
+
+    <p>
+      The marketing was generating results. But the <strong>system behind it</strong> was actively destroying them. Mixed messages, lost trust, slow response times — it was a conversion killer hiding in plain sight.
+    </p>
+  </div>
+
+  <!-- THE TIMELINE -->
+  <div class="cs-section reveal">
+    <div class="cs-section-tag">The Journey</div>
+    <h2>From Mess to System in Three Weeks</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot red"></div>
+        <h4>Week 1 — Ads Go Live, Leads Pour In</h4>
+        <p>Meta Ads + organic posts start delivering 100+ leads. Excitement all around. But leads are hitting one number with no routing logic.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot red"></div>
+        <h4>Week 2 — Chaos Becomes Visible</h4>
+        <p>Wrong people answering wrong leads. Mixed messages. Hot leads going cold. The team is frustrated and conversions are suffering.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot orange"></div>
+        <h4>Week 2.5 — I Spot the Opportunity</h4>
+        <p>Instead of seeing a problem, I saw a system waiting to be built. Proposed a WhatsApp automation solution to the client.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot green"></div>
+        <h4>Week 3 — Bot Goes Live</h4>
+        <p>Built and deployed a WhatsApp bot using Libromi. Two questions, instant routing. Zero confusion from day one.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE SOLUTION -->
+  <div class="cs-section reveal">
+    <div class="cs-section-tag">The Solution</div>
+    <h2>A WhatsApp Bot That Thinks Before It Routes</h2>
+    <p>
+      I saw the mess and thought: <strong>this is actually an opportunity.</strong> Instead of adding more phone lines or hiring a receptionist, I designed a simple but intelligent WhatsApp automation flow using <strong>Libromi</strong>.
+    </p>
+
+    <div class="solution-card">
+      <h3>
+        <span>✦</span> How the Bot Works
+      </h3>
+      <ul class="solution-list">
+        <li>
+          <span class="check-icon">✓</span>
+          Lead messages the WhatsApp number — either from an ad or organically
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          Bot greets them instantly and asks <strong>Question 1:</strong> "What are you looking for?" (CCTV / Home Automation)
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          Based on their answer, <strong>Question 2:</strong> "Are you looking for wholesale or retail?" (if CCTV)
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          Bot instantly routes the conversation to the <strong>exact right person</strong> in real time
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          The assigned team member gets the full context — what the lead wants, before they even say hello
+        </li>
+      </ul>
+    </div>
+
+    <!-- CHAT MOCKUP -->
+    <div class="chat-mockup reveal">
+      <div class="chat-header">
+        <div class="chat-avatar">🤖</div>
+        <div class="chat-header-info">
+          <h4>SecureTech Solutions</h4>
+          <span>Online — Powered by Libromi</span>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="chat-msg bot">
+          Hey there! 👋 Welcome to SecureTech Solutions. I'm here to connect you with the right person instantly.
+          <div class="time">10:32 AM</div>
+        </div>
+        <div class="chat-msg bot">
+          What are you interested in?
+          <div class="chat-options">
+            <div class="chat-option-btn">📹 CCTV Cameras</div>
+            <div class="chat-option-btn">🏠 Home Automation</div>
+          </div>
+          <div class="time">10:32 AM</div>
+        </div>
+        <div class="chat-msg user">
+          📹 CCTV Cameras
+          <div class="time">10:33 AM ✓✓</div>
+        </div>
+        <div class="chat-msg bot">
+          Great choice! Are you looking to buy for:
+          <div class="chat-options">
+            <div class="chat-option-btn">🏪 Retail (1-5 units)</div>
+            <div class="chat-option-btn selected">📦 Wholesale / Bulk Orders</div>
+          </div>
+          <div class="time">10:33 AM</div>
+        </div>
+        <div class="chat-msg user">
+          📦 Wholesale / Bulk Orders
+          <div class="time">10:33 AM ✓✓</div>
+        </div>
+        <div class="chat-msg bot">
+          Perfect! I'm connecting you with <strong>Rajesh</strong> from our wholesale team right now. He'll have the best pricing and catalog for you. 🚀
+          <div class="time">10:33 AM</div>
+        </div>
+        <div class="chat-typing">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOW DIAGRAM -->
+  <div class="cs-section reveal">
+    <div class="flow-section">
+      <h3>The Automation Flow</h3>
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="flow-icon-box wa">💬</div>
+          <div class="flow-step-label">Lead Messages</div>
+          <div class="flow-step-desc">From ad or organic</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon-box bot">🤖</div>
+          <div class="flow-step-label">Bot Asks 2 Qs</div>
+          <div class="flow-step-desc">Category + intent</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon-box route">🔀</div>
+          <div class="flow-step-label">Smart Routing</div>
+          <div class="flow-step-desc">Right department</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon-box team">👤</div>
+          <div class="flow-step-label">Right Person</div>
+          <div class="flow-step-desc">With full context</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE IMPACT -->
+  <div class="cs-section reveal">
+    <div class="cs-section-tag">The Impact</div>
+    <h2>What Changed After the Bot Went Live</h2>
+    <p>
+      The transformation was immediate. From day one, every lead was automatically qualified and routed to the exact right person. No more confusion, no more crossed wires, no more frustrated team members.
+    </p>
+
+    <div class="solution-card">
+      <h3>
+        <span>📊</span> Before vs. After
+      </h3>
+      <ul class="solution-list">
+        <li>
+          <span class="check-icon">✓</span>
+          <strong>Zero misrouted leads</strong> — every inquiry reaches the right department instantly
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <strong>Response time cut in half</strong> — the right person responds within minutes, not hours
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <strong>Higher conversion rates</strong> — leads speak to someone who understands their exact needs from the start
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <strong>Team morale improved</strong> — no more finger-pointing, everyone handles their own department cleanly
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <strong>Scalable system</strong> — as ad spend increases, the bot handles the volume without adding headcount
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TOOLS USED -->
+  <div class="cs-section reveal">
+    <div class="cs-section-tag">Tools Used</div>
+    <h2>The Stack Behind This System</h2>
+    <div class="tools-used">
+      <div class="tool-tag"><span class="dot green"></span> Libromi (WhatsApp Bot)</div>
+      <div class="tool-tag"><span class="dot blue"></span> Meta Ads Manager</div>
+      <div class="tool-tag"><span class="dot orange"></span> WhatsApp Business API</div>
+      <div class="tool-tag"><span class="dot green"></span> Organic Content Strategy</div>
+      <div class="tool-tag"><span class="dot blue"></span> Lead Routing Logic</div>
+    </div>
+  </div>
+
+  <!-- INSIGHT / PHILOSOPHY -->
+  <div class="cs-section reveal">
+    <div class="insight-block">
+      <blockquote>
+        Every problem you face in business is quietly hiding a better system waiting to be built.
+      </blockquote>
+      <cite>— Saravanan Svanas, Growth Consultant</cite>
+    </div>
+  </div>
+
+  <!-- TAKEAWAY -->
+  <div class="cs-section reveal">
+    <div class="cs-section-tag">The Takeaway</div>
+    <h2>It's Not About the Bot. It's About Seeing the System.</h2>
+    <p>
+      Most consultants would have said "get another phone number" or "hire a receptionist." But the real fix wasn't adding more resources — it was building a <strong>smarter path</strong> between the lead and the right conversation.
+    </p>
+    <p>
+      This is what I do as a Growth Consultant: I look at your business, find the friction that's silently killing your conversions, and build systems that eliminate it — usually with tools you didn't even know existed.
+    </p>
+    <p>
+      <strong>If your leads are coming in but not converting, the problem is almost never the ads. It's what happens after the click.</strong>
+    </p>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <div class="section-tag">Your Turn</div>
+    <h2 class="section-title">Leads Coming In But Not Converting?</h2>
+    <p class="section-subtitle">
+      Let's find the friction in your sales process and build a system that fixes it. Book a free 30-minute strategy call.
+    </p>
+    <a href="mailto:saravanan@infobuddha.in" class="btn-primary" style="font-size: 1rem; padding: 1.1rem 2.8rem;">
+      Book Your Free Call
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <div class="cta-links">
+      <a href="https://www.linkedin.com/in/saravanansvanas/" target="_blank" class="cta-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://medium.com/@mindtechmarketer" target="_blank" class="cta-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+        Medium
+      </a>
+      <a href="mailto:saravanan@infobuddha.in" class="cta-link">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Saravanan Svanas · <span>Info Buddha Technologies</span> · Built with intention.</p>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+reveals.forEach(el => observer.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>

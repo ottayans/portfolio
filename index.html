@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saravanan Svanas — Growth Consultant & Founder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0a0a;
+  --paper: #f5f0eb;
+  --cream: #ede6dd;
+  --accent: #c4622d;
+  --accent-glow: #e87a3a;
+  --muted: #8a8078;
+  --card-bg: #ffffff;
+  --divider: rgba(10,10,10,0.08);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== NOISE TEXTURE ========== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ========== NAVIGATION ========== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+nav.scrolled {
+  background: rgba(245, 240, 235, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--divider);
+  padding: 0.8rem 3rem;
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--accent); }
+
+.nav-cta {
+  background: var(--ink) !important;
+  color: var(--paper) !important;
+  padding: 0.6rem 1.6rem !important;
+  border-radius: 100px;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.08em !important;
+  transition: all 0.3s !important;
+}
+
+.nav-cta:hover {
+  background: var(--accent) !important;
+  transform: translateY(-1px);
+}
+
+.nav-cta::after { display: none !important; }
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 20px;
+  position: relative;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  position: absolute;
+  left: 0;
+  transition: all 0.3s;
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 9px; }
+.menu-toggle span:nth-child(3) { top: 18px; }
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-element {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,98,45,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.hero-text { position: relative; z-index: 2; }
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 28px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.8rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s forwards;
+}
+
+.hero-title .accent { color: var(--accent); font-style: italic; }
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.9s forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1rem 2.2rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(196,98,45,0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 1rem 1.5rem;
+  border-radius: 100px;
+  border: 1.5px solid rgba(10,10,10,0.15);
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--ink);
+  background: rgba(10,10,10,0.03);
+}
+
+.hero-image {
+  position: relative;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.1);
+}
+
+.hero-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-image-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+.hero-image-badge {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background: var(--card-bg);
+  padding: 1.2rem 1.6rem;
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 3;
+}
+
+.badge-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.badge-text { font-size: 0.78rem; }
+.badge-text strong { display: block; font-size: 1rem; }
+
+/* ========== SECTIONS COMMON ========== */
+section {
+  padding: 7rem 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.section-tag::before {
+  content: '';
+  width: 32px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ========== ABOUT / STORY ========== */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.about-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.about-img {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.about-img:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16/9;
+}
+
+.about-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-img:hover img { transform: scale(1.04); }
+
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #4a4540;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--divider);
+}
+
+.stat-number {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ========== SERVICES ========== */
+.services-section {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 7rem 3rem;
+  margin: 0;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.services-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 20% 80%, rgba(196,98,45,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(196,98,45,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.services-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.services-section .section-subtitle { color: rgba(245,240,235,0.5); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+.service-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.service-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(196,98,45,0.3);
+  transform: translateY(-4px);
+}
+
+.service-card:hover::before { opacity: 1; }
+
+.service-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(196,98,45,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.service-card p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: rgba(245,240,235,0.5);
+  font-weight: 300;
+}
+
+/* ========== TOOLS ========== */
+.tools-section { text-align: center; }
+
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 100px;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.tool-chip:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(196,98,45,0.1);
+}
+
+.tool-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ========== GALLERY ========== */
+.gallery-section {
+  max-width: 100%;
+  padding: 7rem 3rem;
+}
+
+.gallery-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  margin-top: 3.5rem;
+}
+
+.gallery-item {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-item:hover img { transform: scale(1.06); }
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.4) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.gallery-item:hover::after { opacity: 1; }
+
+.gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+.gallery-item:nth-child(2) { aspect-ratio: 1; }
+.gallery-item:nth-child(3) { aspect-ratio: 1; }
+.gallery-item:nth-child(4) { aspect-ratio: 1; }
+.gallery-item:nth-child(5) { grid-column: span 2; aspect-ratio: 16/9; }
+.gallery-item:nth-child(6) { aspect-ratio: 1; }
+
+.gallery-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.4s;
+}
+
+.gallery-item:hover .gallery-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== VIDEO SECTION ========== */
+.video-section {
+  background: var(--cream);
+  padding: 7rem 3rem;
+  max-width: 100%;
+}
+
+.video-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+.video-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--divider);
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+.video-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: var(--ink);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  transition: all 0.5s;
+}
+
+.video-card:hover .video-thumb img {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.play-btn::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 9px 16px;
+  border-color: transparent transparent transparent var(--ink);
+  margin-left: 3px;
+}
+
+.video-card:hover .play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--accent);
+}
+
+.video-card:hover .play-btn::after {
+  border-color: transparent transparent transparent white;
+}
+
+.video-info { padding: 1.5rem; }
+
+.video-info h4 {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.video-info p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.video-placeholder-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  gap: 0.5rem;
+}
+
+.video-placeholder-text svg {
+  width: 32px;
+  height: 32px;
+  opacity: 0.4;
+}
+
+/* ========== TESTIMONIALS ========== */
+.testimonials-section { text-align: center; }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  text-align: left;
+}
+
+.testimonial-card {
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 20px;
+  padding: 2.5rem;
+  position: relative;
+  transition: all 0.4s;
+}
+
+.testimonial-card:hover {
+  border-color: rgba(196,98,45,0.2);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.05);
+}
+
+.testimonial-quote {
+  font-size: 2.5rem;
+  font-family: var(--serif);
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 1rem;
+  opacity: 0.4;
+}
+
+.testimonial-card p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #4a4540;
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.testimonial-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.testimonial-name { font-weight: 600; font-size: 0.9rem; }
+.testimonial-role { font-size: 0.78rem; color: var(--muted); }
+
+/* ========== CONTACT / CTA ========== */
+.cta-section {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 7rem 3rem;
+  max-width: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,98,45,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-section .section-title {
+  color: var(--paper);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+}
+
+.cta-section .section-subtitle {
+  color: rgba(245,240,235,0.5);
+  max-width: 480px;
+  margin: 1rem auto 2.5rem;
+}
+
+.cta-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(245,240,235,0.6);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+
+.cta-link:hover { color: var(--accent); }
+
+/* ========== FOOTER ========== */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem 3rem;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.78rem;
+  color: rgba(245,240,235,0.3);
+  letter-spacing: 0.04em;
+}
+
+footer span { color: var(--accent); }
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== MARQUEE ========== */
+.marquee-strip {
+  overflow: hidden;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+}
+
+.marquee-content {
+  display: flex;
+  gap: 3rem;
+  animation: marquee 25s linear infinite;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.marquee-content span {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--muted);
+  opacity: 0.4;
+}
+
+.marquee-content span::after {
+  content: '◆';
+  margin-left: 3rem;
+  font-size: 0.5rem;
+  vertical-align: middle;
+  color: var(--accent);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ========== LIGHTBOX ========== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.95);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  cursor: zoom-out;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox.active { display: flex; }
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 12px;
+  object-fit: contain;
+  cursor: default;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-image { max-width: 400px; margin: 0 auto; }
+  .about { grid-template-columns: 1fr; gap: 3rem; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item:nth-child(1) { grid-column: span 2; }
+  .gallery-item:nth-child(5) { grid-column: span 1; }
+  .video-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  nav.scrolled { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .menu-toggle { display: block; }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--paper);
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 999;
+  }
+
+  .nav-links.open a {
+    font-size: 1.2rem;
+  }
+
+  .hero { padding: 7rem 1.5rem 3rem; }
+  section { padding: 4rem 1.5rem; }
+  .services-section { padding: 4rem 1.5rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-item:nth-child(1),
+  .gallery-item:nth-child(5) { grid-column: span 1; }
+  .video-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: repeat(3, 1fr); }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .cta-section { padding: 4rem 1.5rem; }
+  footer { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">S<span>.</span>Svanas</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="./case_list.html">casestudies</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-element"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-tag">Growth Consultant</div>
+      <h1 class="hero-title">
+        Helping SMEs<br>
+        <span class="accent">Scale Smarter,</span><br>
+        Not Harder.
+      </h1>
+      <p class="hero-subtitle">
+        I help small and medium businesses unlock growth through strategic sales systems, performance marketing, and intelligent automation — turning chaos into clarity.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+          Book a Free Strategy Call
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#services" class="btn-secondary">See How I Help</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-image-wrapper">
+        <img src="./Saravanan Images/spotlight.jpeg" alt="Saravanan Svanas at work">
+      </div>
+      <div class="hero-image-badge">
+        <div class="badge-icon">✦</div>
+        <div class="badge-text">
+          <strong>Info Buddha Technologies</strong>
+          Founder & Growth Consultant
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-content">
+    <span>Sales Strategy</span>
+    <span>Marketing Automation</span>
+    <span>Meta Ads</span>
+    <span>Shopify Growth</span>
+    <span>System Design</span>
+    <span>n8n Workflows</span>
+    <span>Lead Generation</span>
+    <span>CRM Setup</span>
+    <span>Sales Strategy</span>
+    <span>Marketing Automation</span>
+    <span>Meta Ads</span>
+    <span>Shopify Growth</span>
+    <span>System Design</span>
+    <span>n8n Workflows</span>
+    <span>Lead Generation</span>
+    <span>CRM Setup</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="about-images reveal">
+    <div class="about-img">
+      <img src="./Saravanan Images/fr1.jpeg" alt="Team meeting">
+    </div>
+    <div class="about-img">
+      <img src="./Saravanan Images/fr2.jpeg" alt="Consulting session">
+    </div>
+    <div class="about-img">
+      <img src="./Saravanan Images/fr3.jpeg" alt="Tech expo">
+    </div>
+  </div>
+  <div class="about-text reveal">
+    <div class="section-tag">The Story</div>
+    <h2 class="section-title">From Tech Enthusiast to Growth Architect</h2>
+    <p>
+      I'm Saravanan Svanas — founder of <strong>Info Buddha Technologies</strong> and a growth consultant who works at the intersection of sales, marketing, and systems thinking.
+    </p>
+    <p>
+      With a background spanning AI product development at Lares.AI, business development at EFUTUREX, and an MBA from Bharathiar University, I've spent years learning how businesses actually grow — not in theory, but in the trenches.
+    </p>
+    <p>
+      Today, I help SMEs across industries build repeatable revenue engines — from setting up high-converting ad campaigns to automating their entire sales pipeline with tools like n8n, Make, and custom CRM workflows.
+    </p>
+    <div class="about-stats">
+      <div>
+        <div class="stat-number">50+</div>
+        <div class="stat-label">SMEs Helped</div>
+      </div>
+      <div>
+        <div class="stat-number">3x</div>
+        <div class="stat-label">Avg. Revenue Lift</div>
+      </div>
+      <div>
+        <div class="stat-number">100+</div>
+        <div class="stat-label">Systems Automated</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <div class="reveal">
+      <div class="section-tag">What I Do</div>
+      <h2 class="section-title">Growth, Engineered.</h2>
+      <p class="section-subtitle">Three pillars that transform struggling SMEs into scalable, profitable businesses.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">📈</div>
+        <h3>Sales Growth Systems</h3>
+        <p>End-to-end sales strategy — from lead qualification frameworks to closing scripts. I build pipelines that convert browsers into buyers and one-time customers into repeat revenue.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎯</div>
+        <h3>Performance Marketing</h3>
+        <p>Meta Ads, Google Ads, Shopify funnels — I design and manage campaigns that generate measurable ROI. No vanity metrics, only revenue-focused marketing that pays for itself.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">⚙️</div>
+        <h3>System Automation</h3>
+        <p>Using n8n, Make, Zapier, and custom integrations — I automate your follow-ups, CRM workflows, reporting, and operations so your team can focus on what humans do best.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🛒</div>
+        <h3>Shopify & E-Commerce</h3>
+        <p>Store setup, conversion optimization, abandoned cart flows, product page design — everything needed to turn your Shopify store into a revenue machine.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🤖</div>
+        <h3>AI-Powered Operations</h3>
+        <p>Leverage AI chatbots, smart lead scoring, content generation, and predictive analytics to give your business an unfair advantage over competitors still doing things manually.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🧭</div>
+        <h3>Growth Consulting</h3>
+        <p>1-on-1 advisory for founders and CEOs. I audit your current growth engine, identify the bottlenecks, and build a 90-day roadmap to unlock your next revenue milestone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="reveal">
+    <div class="section-tag" style="justify-content:center;">Arsenal</div>
+    <h2 class="section-title">Tools I Master</h2>
+    <p class="section-subtitle" style="margin:1rem auto 0;">The platforms and technologies I wield to build growth systems that work while you sleep.</p>
+  </div>
+  <div class="tools-grid reveal">
+    <div class="tool-chip"><div class="tool-dot"></div>Meta Ads Manager</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Shopify</div>
+    <div class="tool-chip"><div class="tool-dot"></div>n8n</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Make (Integromat)</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Zapier</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Google Ads</div>
+    <div class="tool-chip"><div class="tool-dot"></div>HubSpot CRM</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Zoho CRM</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Notion</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Google Analytics</div>
+    <div class="tool-chip"><div class="tool-dot"></div>ChatGPT / Claude AI</div>
+    <div class="tool-chip"><div class="tool-dot"></div>WhatsApp Business API</div>
+    <div class="tool-chip"><div class="tool-dot"></div>WordPress</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Mailchimp</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Canva</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Meta Business Suit</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Zoho Erp</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Whatsaap Buiness Api</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Digital Ocean</div>
+    <div class="tool-chip"><div class="tool-dot"></div>Hostinger</div>
+    <div class="tool-chip"><div class="tool-dot"></div>chatGpt</div>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-inner">
+    <div class="reveal">
+      <div class="section-tag">In Action</div>
+      <h2 class="section-title">Behind the Scenes</h2>
+      <p class="section-subtitle">From whiteboard strategy sessions to tech expos — a glimpse into how I work with teams and clients.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="images/photo_team_meeting.jpeg" alt="Team strategy session">
+        <span class="gallery-label">Team Strategy Session</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="images/photo_whiteboard_why.jpeg" alt="Why People Buy - Workshop">
+        <span class="gallery-label">Why People Buy — Workshop</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="images/photo_whiteboard_what.jpeg" alt="Customer Psychology">
+        <span class="gallery-label">Customer Psychology Framework</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="images/photo_laptop.jpeg" alt="Deep work">
+        <span class="gallery-label">Deep Work Mode</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="images/photo_expo.jpeg" alt="Tech Expo">
+        <span class="gallery-label">Lares.AI at Tech Expo</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="images/photo_team_standing.jpeg" alt="Team">
+        <span class="gallery-label">The Team</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="video-section" id="videos">
+  <div class="video-inner">
+    <div class="reveal">
+      <div class="section-tag">Watch & Learn</div>
+      <h2 class="section-title">Video Insights</h2>
+      <p class="section-subtitle">Growth strategies, marketing breakdowns, and automation tutorials — straight from the trenches.</p>
+    </div>
+    <div class="video-grid reveal">
+      <div class="video-card">
+        <div class="video-thumb">
+          <img src="images/photo_collab.jpeg" alt="Video thumbnail">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-info">
+          <h4>How I 3x'd Revenue for a D2C Brand</h4>
+          <p>A deep dive into the sales system that transformed a struggling eCommerce business.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb">
+          <img src="images/photo_team_discussion.jpeg" alt="Video thumbnail">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-info">
+          <h4>n8n Automation Masterclass</h4>
+          <p>Building your first automated lead nurture pipeline from scratch.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb">
+          <img src="images/photo_interview.jpeg" alt="Video thumbnail">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-info">
+          <h4>The SME Growth Playbook</h4>
+          <p>My framework for scaling small businesses without burning cash on ads.</p>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:2rem; font-size:0.85rem; color:var(--muted); font-style:italic;">
+      Video content coming soon — subscribe to get notified when they drop.
+    </p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="reveal">
+    <div class="section-tag" style="justify-content:center;">Kind Words</div>
+    <h2 class="section-title">What Clients Say</h2>
+  </div>
+  <div class="testimonials-grid reveal">
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p>Saravanan didn't just run our ads — he rebuilt our entire sales process. Within 90 days, our monthly revenue jumped by 2.5x and our team finally had a system they could follow.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">R</div>
+        <div>
+          <div class="testimonial-name">Rahul M.</div>
+          <div class="testimonial-role">Founder, D2C Fashion Brand</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p>The automation workflows Saravanan built with n8n saved us 20+ hours a week. What used to take our team a full day now runs on autopilot. Game-changer for our operations.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">P</div>
+        <div>
+          <div class="testimonial-name">Priya S.</div>
+          <div class="testimonial-role">COO, SaaS Startup</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p>What I appreciate most is that Saravanan thinks like a founder, not a vendor. He understood our cash constraints and designed a growth plan that was lean, measurable, and effective.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">A</div>
+        <div>
+          <div class="testimonial-name">Arjun K.</div>
+          <div class="testimonial-role">CEO, EdTech Company</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p>We went from zero online presence to a fully automated Shopify store doing consistent 6-figure months. Saravanan's Meta Ads strategy was the catalyst we needed.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">N</div>
+        <div>
+          <div class="testimonial-name">Nisha T.</div>
+          <div class="testimonial-role">Owner, Home & Living Brand</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner reveal">
+    <div class="section-tag" style="justify-content:center; color: var(--accent);">Let's Build</div>
+    <h2 class="section-title">Ready to Scale Your Business?</h2>
+    <p class="section-subtitle">
+      Book a free 30-minute strategy call. We'll audit your current growth engine and map out a plan to hit your next revenue milestone.
+    </p>
+    <a href="mailto:saravanan@infobuddha.in" class="btn-primary" style="font-size: 1rem; padding: 1.1rem 2.8rem;">
+      Book Your Free Call
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <div class="cta-links">
+      <a href="https://www.linkedin.com/in/saravanansvanas/" target="_blank" class="cta-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://medium.com/@mindtechmarketer" target="_blank" class="cta-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+        Medium
+      </a>
+      <a href="mailto:saravanan@infobuddha.in" class="cta-link">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Saravanan Svanas · <span>Info Buddha Technologies</span> · Built with intention.</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+  <img src="" alt="Gallery image" id="lightboxImg">
+</div>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Close menu on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+reveals.forEach(el => observer.observe(el));
+
+// Lightbox
+function openLightbox(el) {
+  const img = el.querySelector('img');
+  document.getElementById('lightboxImg').src = img.src;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+  if (e.target === document.getElementById('lightbox') || e.target.closest('.lightbox-close')) {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
