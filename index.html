@@ -593,7 +593,6 @@ section {
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto;
   gap: 1rem;
   margin-top: 3.5rem;
 }
@@ -625,12 +624,11 @@ section {
 
 .gallery-item:hover::after { opacity: 1; }
 
-.gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
-.gallery-item:nth-child(2) { aspect-ratio: 1; }
-.gallery-item:nth-child(3) { aspect-ratio: 1; }
-.gallery-item:nth-child(4) { aspect-ratio: 1; }
-.gallery-item:nth-child(5) { grid-column: span 2; aspect-ratio: 16/9; }
-.gallery-item:nth-child(6) { aspect-ratio: 1; }
+.gallery-item { aspect-ratio: 1; }
+.gallery-item:nth-child(1),
+.gallery-item:nth-child(2),
+.gallery-item:nth-child(11),
+.gallery-item:nth-child(12) { grid-column: span 2; aspect-ratio: 16/9; }
 
 .gallery-label {
   position: absolute;
@@ -665,7 +663,7 @@ section {
 
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-top: 3.5rem;
 }
@@ -685,21 +683,24 @@ section {
 
 .video-thumb {
   position: relative;
-  aspect-ratio: 16/9;
+  aspect-ratio: 9/16;
   background: var(--ink);
   overflow: hidden;
   cursor: pointer;
 }
 
-.video-thumb img {
+.video-thumb img,
+.video-thumb video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.7;
   transition: all 0.5s;
+  display: block;
 }
 
-.video-card:hover .video-thumb img {
+.video-card:hover .video-thumb img,
+.video-card:hover .video-thumb video {
   opacity: 0.85;
   transform: scale(1.05);
 }
@@ -772,6 +773,50 @@ section {
   height: 32px;
   opacity: 0.4;
 }
+
+/* ========== VIDEO MODAL ========== */
+.video-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.video-modal.active { display: flex; }
+
+.video-modal video {
+  max-height: 88vh;
+  width: auto;
+  max-width: 100%;
+  border-radius: 16px;
+  outline: none;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+  z-index: 2;
+}
+
+.video-modal-close:hover { background: rgba(255,255,255,0.2); }
 
 /* ========== TESTIMONIALS ========== */
 .testimonials-section { text-align: center; }
@@ -1022,8 +1067,10 @@ footer span { color: var(--accent); }
   .about { grid-template-columns: 1fr; gap: 3rem; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .gallery-item:nth-child(1) { grid-column: span 2; }
-  .gallery-item:nth-child(5) { grid-column: span 1; }
+  .gallery-item:nth-child(1),
+  .gallery-item:nth-child(2),
+  .gallery-item:nth-child(11),
+  .gallery-item:nth-child(12) { grid-column: span 2; aspect-ratio: 16/9; }
   .video-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -1053,10 +1100,13 @@ footer span { color: var(--accent); }
   section { padding: 4rem 1.5rem; }
   .services-section { padding: 4rem 1.5rem; }
   .services-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item { aspect-ratio: 1; }
   .gallery-item:nth-child(1),
-  .gallery-item:nth-child(5) { grid-column: span 1; }
-  .video-grid { grid-template-columns: 1fr; }
+  .gallery-item:nth-child(2),
+  .gallery-item:nth-child(11),
+  .gallery-item:nth-child(12) { grid-column: span 2; aspect-ratio: 16/9; }
+  .video-grid { grid-template-columns: repeat(2, 1fr); }
   .testimonials-grid { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: repeat(3, 1fr); }
   .hero-actions { flex-direction: column; align-items: flex-start; }
@@ -1148,7 +1198,7 @@ footer span { color: var(--accent); }
 <section id="about" class="about">
   <div class="about-images reveal">
     <div class="about-img">
-      <img src="./Saravanan Images/fr1.jpeg" alt="Team meeting">
+      <img src="./Saravanan Images/IMG_1127.jpg" alt="Saravanan Svanas">
     </div>
     <div class="about-img">
       <img src="./Saravanan Images/fr2.jpeg" alt="Consulting session">
@@ -1271,29 +1321,99 @@ footer span { color: var(--accent); }
       <p class="section-subtitle">From whiteboard strategy sessions to tech expos — a glimpse into how I work with teams and clients.</p>
     </div>
     <div class="gallery-grid reveal">
+      <!-- Row 1: two landscape shots (span 2 each) -->
       <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="images/photo_team_meeting.jpeg" alt="Team strategy session">
-        <span class="gallery-label">Team Strategy Session</span>
+        <img src="./Saravanan Images/IMG_1094.jpg" alt="Speaking at HackSchool — Mastering Paid Ads">
+        <span class="gallery-label">Speaking at HackSchool — Mastering Paid Ads</span>
       </div>
       <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="images/photo_whiteboard_why.jpeg" alt="Why People Buy - Workshop">
-        <span class="gallery-label">Why People Buy — Workshop</span>
+        <img src="./Saravanan Images/IMG_1120.jpg" alt="Team at Tech Expo">
+        <span class="gallery-label">Team at Tech Expo</span>
+      </div>
+      <!-- Row 2: four squares -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/IMG_1121.jpg" alt="LARES.AI at India Startup Showcase">
+        <span class="gallery-label">LARES.AI at India Startup Showcase</span>
       </div>
       <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="images/photo_whiteboard_what.jpeg" alt="Customer Psychology">
-        <span class="gallery-label">Customer Psychology Framework</span>
+        <img src="./Saravanan Images/IMG_1124.jpg" alt="Live Demo at Tech Expo">
+        <span class="gallery-label">Live Demo at Tech Expo</span>
       </div>
       <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="images/photo_laptop.jpeg" alt="Deep work">
-        <span class="gallery-label">Deep Work Mode</span>
+        <img src="./Saravanan Images/IMG_1125.jpg" alt="On the Mic — Podcast Recording">
+        <span class="gallery-label">On the Mic — Podcast Recording</span>
       </div>
       <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="images/photo_expo.jpeg" alt="Tech Expo">
-        <span class="gallery-label">Lares.AI at Tech Expo</span>
+        <img src="./Saravanan Images/IMG_1127.jpg" alt="Between Decks">
+        <span class="gallery-label">Between Decks</span>
+      </div>
+      <!-- Row 3: four squares -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/IMG_1128.jpg" alt="BNI Jubilants — Growing Forward">
+        <span class="gallery-label">BNI Jubilants — Growing Forward</span>
       </div>
       <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="images/photo_team_standing.jpeg" alt="Team">
-        <span class="gallery-label">The Team</span>
+        <img src="./Saravanan Images/WhatsApp Image 2026-04-14 at 2.10.12 PM.jpeg" alt="Lead routing system">
+        <span class="gallery-label">Lead Routing System</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/WhatsApp Image 2026-04-14 at 2.10.13 PM.jpeg" alt="Results dashboard">
+        <span class="gallery-label">Results Dashboard</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/WhatsApp Image 2026-04-14 at 2.10.14 PM (1).jpeg" alt="Ad performance">
+        <span class="gallery-label">Ad Performance</span>
+      </div>
+      <!-- Row 4: two landscape shots (span 2 each) -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/WhatsApp Image 2026-04-14 at 2.10.14 PM (2).jpeg" alt="Analytics overview">
+        <span class="gallery-label">Analytics Overview</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/WhatsApp Image 2026-04-14 at 2.10.14 PM.jpeg" alt="Google Ads dashboard">
+        <span class="gallery-label">Google Ads Dashboard</span>
+      </div>
+      <!-- Row 5: four squares -->
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/fr2.jpeg" alt="In the field">
+        <span class="gallery-label">In the Field</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/fr3.jpeg" alt="Client success">
+        <span class="gallery-label">Client Success</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/spotlight.jpeg" alt="In the spotlight">
+        <span class="gallery-label">In the Spotlight</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/latest1.JPG" alt="Live Workshop Session">
+        <span class="gallery-label">Live Workshop Session</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/latest2.jpg" alt="Meta Ads Team Training">
+        <span class="gallery-label">Meta Ads Team Training</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/naturals.png" alt="Client Onboarding — Naturals">
+        <span class="gallery-label">Client Onboarding — Naturals</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/generative.png" alt="International GenAI Conclave, Kochi">
+        <span class="gallery-label">International GenAI Conclave, Kochi</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/kochi.png" alt="Pitching at Kochi Tech Expo">
+        <span class="gallery-label">Pitching at Kochi Tech Expo</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/efuturex.png" alt="eFuturex — Coffee with Techies">
+        <span class="gallery-label">eFuturex — Coffee with Techies</span>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/training.png" alt="Corporate Training Sessions">
+        <span class="gallery-label">Corporate Training Sessions</span>
       </div>
     </div>
   </div>
@@ -1305,43 +1425,41 @@ footer span { color: var(--accent); }
     <div class="reveal">
       <div class="section-tag">Watch & Learn</div>
       <h2 class="section-title">Video Insights</h2>
-      <p class="section-subtitle">Growth strategies, marketing breakdowns, and automation tutorials — straight from the trenches.</p>
     </div>
     <div class="video-grid reveal">
-      <div class="video-card">
+      <div class="video-card" onclick="openVideoModal('videos/Video-19.mp4')">
         <div class="video-thumb">
-          <img src="images/photo_collab.jpeg" alt="Video thumbnail">
+          <video preload="metadata" muted>
+            <source src="videos/Video-19.mp4" type="video/mp4">
+          </video>
           <div class="play-btn"></div>
-        </div>
-        <div class="video-info">
-          <h4>How I 3x'd Revenue for a D2C Brand</h4>
-          <p>A deep dive into the sales system that transformed a struggling eCommerce business.</p>
         </div>
       </div>
-      <div class="video-card">
+      <div class="video-card" onclick="openVideoModal('videos/Video-37.mp4')">
         <div class="video-thumb">
-          <img src="images/photo_team_discussion.jpeg" alt="Video thumbnail">
+          <video preload="metadata" muted>
+            <source src="videos/Video-37.mp4" type="video/mp4">
+          </video>
           <div class="play-btn"></div>
-        </div>
-        <div class="video-info">
-          <h4>n8n Automation Masterclass</h4>
-          <p>Building your first automated lead nurture pipeline from scratch.</p>
         </div>
       </div>
-      <div class="video-card">
+      <div class="video-card" onclick="openVideoModal('videos/Video-44.mp4')">
         <div class="video-thumb">
-          <img src="images/photo_interview.jpeg" alt="Video thumbnail">
+          <video preload="metadata" muted>
+            <source src="videos/Video-44.mp4" type="video/mp4">
+          </video>
           <div class="play-btn"></div>
         </div>
-        <div class="video-info">
-          <h4>The SME Growth Playbook</h4>
-          <p>My framework for scaling small businesses without burning cash on ads.</p>
+      </div>
+      <div class="video-card" onclick="openVideoModal('videos/Video-862.mp4')">
+        <div class="video-thumb">
+          <video preload="metadata" muted>
+            <source src="videos/Video-862.mp4" type="video/mp4">
+          </video>
+          <div class="play-btn"></div>
         </div>
       </div>
     </div>
-    <p style="text-align:center; margin-top:2rem; font-size:0.85rem; color:var(--muted); font-style:italic;">
-      Video content coming soon — subscribe to get notified when they drop.
-    </p>
   </div>
 </section>
 
@@ -1439,6 +1557,14 @@ footer span { color: var(--accent); }
   <img src="" alt="Gallery image" id="lightboxImg">
 </div>
 
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
+  <button class="video-modal-close" onclick="closeVideoModal(event)">✕</button>
+  <video id="modalVideo" controls>
+    <source src="" type="video/mp4" id="modalVideoSrc">
+  </video>
+</div>
+
 <script>
 // Navbar scroll effect
 const navbar = document.getElementById('navbar');
@@ -1491,9 +1617,32 @@ function closeLightbox(e) {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     document.getElementById('lightbox').classList.remove('active');
+    closeVideoModal({ target: document.getElementById('videoModal') });
     document.body.style.overflow = '';
   }
 });
+
+// Video Modal
+function openVideoModal(src) {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  video.src = src;
+  video.load();
+  video.play();
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModal(e) {
+  const modal = document.getElementById('videoModal');
+  if (e.target === modal || e.target.closest('.video-modal-close')) {
+    const video = document.getElementById('modalVideo');
+    video.pause();
+    video.src = '';
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
