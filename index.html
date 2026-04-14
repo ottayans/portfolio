@@ -137,9 +137,13 @@ nav.scrolled {
   background: none;
   border: none;
   cursor: pointer;
-  width: 28px;
-  height: 20px;
+  width: 32px;
+  height: 24px;
   position: relative;
+  z-index: 1100;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  padding: 0;
 }
 
 .menu-toggle span {
@@ -149,12 +153,18 @@ nav.scrolled {
   background: var(--ink);
   position: absolute;
   left: 0;
-  transition: all 0.3s;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s, top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
 }
 
 .menu-toggle span:nth-child(1) { top: 0; }
-.menu-toggle span:nth-child(2) { top: 9px; }
-.menu-toggle span:nth-child(3) { top: 18px; }
+.menu-toggle span:nth-child(2) { top: 11px; }
+.menu-toggle span:nth-child(3) { top: 22px; }
+
+/* X state */
+.menu-toggle.open span:nth-child(1) { top: 11px; transform: rotate(45deg); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-toggle.open span:nth-child(3) { top: 11px; transform: rotate(-45deg); }
 
 /* ========== HERO ========== */
 .hero {
@@ -1060,6 +1070,102 @@ footer span { color: var(--accent); }
 
 .lightbox-close:hover { background: rgba(255,255,255,0.2); }
 
+/* ========== CHAT MODAL ========== */
+.chat-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 10001;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.chat-modal.active { display: flex; }
+.chat-modal-box {
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.25);
+  animation: fadeUp 0.35s forwards;
+}
+.chat-modal-close {
+  position: absolute;
+  top: 1.2rem; right: 1.2rem;
+  background: var(--cream);
+  border: none;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s;
+  color: var(--ink);
+}
+.chat-modal-close:hover { background: var(--divider); }
+.chat-modal-box h3 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.02em;
+}
+.chat-modal-box > p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
+}
+.chat-field { margin-bottom: 1.1rem; }
+.chat-field label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.chat-field input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--divider);
+  border-radius: 10px;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  background: var(--card-bg);
+  color: var(--ink);
+  transition: border-color 0.3s;
+  outline: none;
+}
+.chat-field input:focus { border-color: var(--accent); }
+.chat-field input::placeholder { color: var(--muted); opacity: 0.6; }
+.chat-submit {
+  width: 100%;
+  margin-top: 0.8rem;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.3s;
+  letter-spacing: 0.02em;
+}
+.chat-submit:hover { background: #20b858; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
   .hero-content { grid-template-columns: 1fr; gap: 3rem; }
@@ -1089,7 +1195,13 @@ footer span { color: var(--accent); }
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    z-index: 999;
+    z-index: 1050;
+    animation: menuFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes menuFadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .nav-links.open a {
@@ -1119,7 +1231,7 @@ footer span { color: var(--accent); }
 
 <!-- NAVIGATION -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">S<span>.</span>Svanas</a>
+  <a href="#" class="nav-logo">Saravanan Svanas</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
@@ -1128,9 +1240,9 @@ footer span { color: var(--accent); }
     <li><a href="#videos">Videos</a></li>
     <li><a href="./case_list.html">casestudies</a></li>
     <li><a href="#testimonials">Testimonials</a></li>
-    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+    <li><a href="#" class="nav-cta" onclick="openChatModal(event)">Let's Chat</a></li>
   </ul>
-  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1154,7 +1266,7 @@ footer span { color: var(--accent); }
           Book a Free Strategy Call
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="#services" class="btn-secondary">See How I Help</a>
+        <a href="case_list.html" class="btn-secondary">See How I Help</a>
       </div>
     </div>
     <div class="hero-image">
@@ -1415,6 +1527,10 @@ footer span { color: var(--accent); }
         <img src="./Saravanan Images/training.png" alt="Corporate Training Sessions">
         <span class="gallery-label">Corporate Training Sessions</span>
       </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="./Saravanan Images/aiaffect.jpg" alt="eFuturex — Master Class on AI">
+        <span class="gallery-label">eFuturex — Master Class on AI</span>
+      </div>
     </div>
   </div>
 </section>
@@ -1429,7 +1545,7 @@ footer span { color: var(--accent); }
     <div class="video-grid reveal">
       <div class="video-card" onclick="openVideoModal('videos/Video-19.mp4')">
         <div class="video-thumb">
-          <video preload="metadata" muted>
+          <video preload="metadata" muted poster="videos/Video-19.mp4.png">
             <source src="videos/Video-19.mp4" type="video/mp4">
           </video>
           <div class="play-btn"></div>
@@ -1437,7 +1553,7 @@ footer span { color: var(--accent); }
       </div>
       <div class="video-card" onclick="openVideoModal('videos/Video-37.mp4')">
         <div class="video-thumb">
-          <video preload="metadata" muted>
+          <video preload="metadata" muted poster="videos/Video-37.mp4.png">
             <source src="videos/Video-37.mp4" type="video/mp4">
           </video>
           <div class="play-btn"></div>
@@ -1445,7 +1561,7 @@ footer span { color: var(--accent); }
       </div>
       <div class="video-card" onclick="openVideoModal('videos/Video-44.mp4')">
         <div class="video-thumb">
-          <video preload="metadata" muted>
+          <video preload="metadata" muted poster="videos/Video-44.mp4.png">
             <source src="videos/Video-44.mp4" type="video/mp4">
           </video>
           <div class="play-btn"></div>
@@ -1453,7 +1569,7 @@ footer span { color: var(--accent); }
       </div>
       <div class="video-card" onclick="openVideoModal('videos/Video-862.mp4')">
         <div class="video-thumb">
-          <video preload="metadata" muted>
+          <video preload="metadata" muted poster="videos/Video-862.mp4.png">
             <source src="videos/Video-862.mp4" type="video/mp4">
           </video>
           <div class="play-btn"></div>
@@ -1557,6 +1673,33 @@ footer span { color: var(--accent); }
   <img src="" alt="Gallery image" id="lightboxImg">
 </div>
 
+<!-- CHAT MODAL -->
+<div class="chat-modal" id="chatModal" onclick="closeChatModal(event)">
+  <div class="chat-modal-box">
+    <button class="chat-modal-close" onclick="closeChatModal(event)">✕</button>
+    <h3>Let's Chat</h3>
+    <p>Fill in your details and I'll get back to you on WhatsApp right away.</p>
+    <form onsubmit="sendToWhatsApp(event)">
+      <div class="chat-field">
+        <label>Your Name</label>
+        <input type="text" id="chatName" placeholder="John Doe" required>
+      </div>
+      <div class="chat-field">
+        <label>Phone Number</label>
+        <input type="tel" id="chatPhone" placeholder="+91 98765 43210" required>
+      </div>
+      <div class="chat-field">
+        <label>Company Name</label>
+        <input type="text" id="chatCompany" placeholder="Your Company" required>
+      </div>
+      <button type="submit" class="chat-submit">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Send on WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
+
 <!-- VIDEO MODAL -->
 <div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
   <button class="video-modal-close" onclick="closeVideoModal(event)">✕</button>
@@ -1573,16 +1716,40 @@ window.addEventListener('scroll', () => {
 });
 
 // Mobile menu
-function toggleMenu() {
-  document.getElementById('navLinks').classList.toggle('open');
-}
+(function () {
+  const toggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
 
-// Close menu on link click
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => {
-    document.getElementById('navLinks').classList.remove('open');
+  function openMenu() {
+    navLinks.classList.add('open');
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    navLinks.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  // Use pointerup to avoid 300ms delay and prevent double-fire
+  toggle.addEventListener('pointerup', function (e) {
+    e.preventDefault();
+    navLinks.classList.contains('open') ? closeMenu() : openMenu();
   });
-});
+
+  // Close on nav link click
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) closeMenu();
+  });
+})();
 
 // Reveal on scroll
 const reveals = document.querySelectorAll('.reveal');
@@ -1598,6 +1765,30 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 reveals.forEach(el => observer.observe(el));
+
+// Chat Modal
+function openChatModal(e) {
+  e.preventDefault();
+  document.getElementById('chatModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeChatModal(e) {
+  if (e.target === document.getElementById('chatModal') || e.target.closest('.chat-modal-close')) {
+    document.getElementById('chatModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+function sendToWhatsApp(e) {
+  e.preventDefault();
+  const name    = document.getElementById('chatName').value.trim();
+  const phone   = document.getElementById('chatPhone').value.trim();
+  const company = document.getElementById('chatCompany').value.trim();
+  const message = `Hi Saravanan! 👋\n\nName: ${name}\nPhone: ${phone}\nCompany: ${company}\n\nI'd love to connect!`;
+  window.open(`https://wa.me/917034714831?text=${encodeURIComponent(message)}`, '_blank');
+  document.getElementById('chatModal').classList.remove('active');
+  document.body.style.overflow = '';
+  e.target.reset();
+}
 
 // Lightbox
 function openLightbox(el) {
@@ -1618,6 +1809,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     document.getElementById('lightbox').classList.remove('active');
     closeVideoModal({ target: document.getElementById('videoModal') });
+    document.getElementById('chatModal').classList.remove('active');
     document.body.style.overflow = '';
   }
 });

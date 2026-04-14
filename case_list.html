@@ -772,20 +772,116 @@ footer span { color: var(--accent); }
   footer { padding: 1.5rem; }
   .featured-content { padding: 2rem; }
 }
+/* ========== CHAT MODAL ========== */
+.chat-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 10001;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.chat-modal.active { display: flex; }
+.chat-modal-box {
+  background: #f5f0eb;
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.25);
+  animation: fadeUp 0.35s forwards;
+}
+.chat-modal-close {
+  position: absolute;
+  top: 1.2rem; right: 1.2rem;
+  background: #ede6dd;
+  border: none;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s;
+  color: #0a0a0a;
+}
+.chat-modal-close:hover { background: rgba(10,10,10,0.08); }
+.chat-modal-box h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+}
+.chat-modal-box > p {
+  font-size: 0.88rem;
+  color: #8a8078;
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
+}
+.chat-field { margin-bottom: 1.1rem; }
+.chat-field label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a8078;
+  margin-bottom: 0.4rem;
+}
+.chat-field input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid rgba(10,10,10,0.08);
+  border-radius: 10px;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 0.95rem;
+  background: #ffffff;
+  color: #0a0a0a;
+  transition: border-color 0.3s;
+  outline: none;
+}
+.chat-field input:focus { border-color: #c4622d; }
+.chat-field input::placeholder { color: #8a8078; opacity: 0.6; }
+.chat-submit {
+  width: 100%;
+  margin-top: 0.8rem;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.3s;
+  letter-spacing: 0.02em;
+}
+.chat-submit:hover { background: #20b858; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
 </style>
 </head>
 <body>
 
 <!-- NAVIGATION -->
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">S<span>.</span>Svanas</a>
+    <a href="#" class="nav-logo">Saravanan Svanas</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html#about">About</a></li>
     <li><a href="index.html#services">Services</a></li>
     <li><a href="case_list.html" style="color:var(--accent)">Case Studies</a></li>
     <li><a href="index.html#tools">Tools</a></li>
     <li><a href="index.html#gallery">Gallery</a></li>
-    <li><a href="index.html#contact" class="nav-cta">Let's Talk</a></li>
+    <li><a href="#" class="nav-cta" onclick="openChatModal(event)">Let's Chat</a></li>
   </ul>
   <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -1119,6 +1215,64 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 reveals.forEach(el => observer.observe(el));
+</script>
+
+<!-- CHAT MODAL -->
+<div class="chat-modal" id="chatModal" onclick="closeChatModal(event)">
+  <div class="chat-modal-box">
+    <button class="chat-modal-close" onclick="closeChatModal(event)">✕</button>
+    <h3>Let's Chat</h3>
+    <p>Fill in your details and I'll get back to you on WhatsApp right away.</p>
+    <form onsubmit="sendToWhatsApp(event)">
+      <div class="chat-field">
+        <label>Your Name</label>
+        <input type="text" id="chatName" placeholder="John Doe" required>
+      </div>
+      <div class="chat-field">
+        <label>Phone Number</label>
+        <input type="tel" id="chatPhone" placeholder="+91 98765 43210" required>
+      </div>
+      <div class="chat-field">
+        <label>Company Name</label>
+        <input type="text" id="chatCompany" placeholder="Your Company" required>
+      </div>
+      <button type="submit" class="chat-submit">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Send on WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+function openChatModal(e) {
+  e.preventDefault();
+  document.getElementById('chatModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeChatModal(e) {
+  if (e.target === document.getElementById('chatModal') || e.target.closest('.chat-modal-close')) {
+    document.getElementById('chatModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+function sendToWhatsApp(e) {
+  e.preventDefault();
+  const name    = document.getElementById('chatName').value.trim();
+  const phone   = document.getElementById('chatPhone').value.trim();
+  const company = document.getElementById('chatCompany').value.trim();
+  const message = `Hi Saravanan! 👋\n\nName: ${name}\nPhone: ${phone}\nCompany: ${company}\n\nI'd love to connect!`;
+  window.open(`https://wa.me/917034714831?text=${encodeURIComponent(message)}`, '_blank');
+  document.getElementById('chatModal').classList.remove('active');
+  document.body.style.overflow = '';
+  e.target.reset();
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('chatModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
 </script>
 </body>
 </html>
